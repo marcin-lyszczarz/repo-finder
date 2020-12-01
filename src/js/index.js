@@ -14,12 +14,14 @@ btnSearch.addEventListener("click", (e) => {
   fetch(`https://api.github.com/users/${searchText.value}/repos`)
     .then((resp) => resp.json())
     .then((resp) => {
+      const resultList = document.querySelector(".result__list--js");
+      resultList.textContent = "";
       for (let repo of resp) {
         const { name, html_url } = repo;
         const {avatar_url} = repo.owner;
         const resultList = document.querySelector(".result__list--js");
         const avatar = document.querySelector('.result__img--js');
-        const img = `<img src="${avatar_url}">`;
+        const img = `<img src="${avatar_url}" title="profile image" class="result__img">`;
         const template = `<li>${name} <a href="${html_url}" title="github prpository link"> GitHub link</a></li>`;
         avatar.innerHTML = img;
         resultList.innerHTML += template;
